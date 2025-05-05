@@ -1,0 +1,41 @@
+<div class="container mx-auto mt-6">
+    <h2 class="text-2xl font-semibold text-center mb-6">Listado de Facturas</h2>
+  
+    <!-- Botón para abrir el modal -->
+    <button (click)="openModal()" class="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-700">
+        Crear Factura
+      </button>
+  
+    <!-- Tabla de Facturas -->
+    <table class="min-w-full bg-white shadow-md rounded-lg">
+      <thead>
+        <tr class="text-left">
+          <th class="px-4 py-2 border-b">Factura ID</th>
+          <th class="px-4 py-2 border-b">Cliente</th>
+          <th class="px-4 py-2 border-b">Fecha Factura</th>
+          <th class="px-4 py-2 border-b">Total</th>
+          <th class="px-4 py-2 border-b">Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="px-4 py-2 border-b">1</td>
+          <td class="px-4 py-2 border-b">101</td>
+          <td class="px-4 py-2 border-b">01/05/2025</td>
+          <td class="px-4 py-2 border-b">$150.75</td>
+          <td class="px-4 py-2 border-b">Activo</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-2 border-b">2</td>
+          <td class="px-4 py-2 border-b">102</td>
+          <td class="px-4 py-2 border-b">05/05/2025</td>
+          <td class="px-4 py-2 border-b">$200.50</td>
+          <td class="px-4 py-2 border-b">Inactivo</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Modal para Crear Factura -->
+  <app-factura></app-factura>
+  
