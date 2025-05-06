@@ -1,23 +1,11 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, OnInit } from '@angular/core';
 
-import { ListFacturaComponent } from './list-factura.component';
-
-describe('ListFacturaComponent', () => {
-  let component: ListFacturaComponent;
-  let fixture: ComponentFixture<ListFacturaComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ListFacturaComponent]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(ListFacturaComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+@Component({
+  selector: 'app-list-factura',
+  templateUrl: './list-factura.component.html',
+  styleUrls: ['./list-factura.component.css']
+})
+export class ListFacturaComponent implements OnInit {
+   ngOnInit(): void {
+   }
+}

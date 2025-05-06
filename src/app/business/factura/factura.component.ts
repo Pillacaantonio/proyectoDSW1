@@ -5,16 +5,14 @@ import { Component } from '@angular/core';
   templateUrl: './factura.component.html',
   styleUrls: ['./factura.component.scss']
 })
-export default class FacturaComponent {
-  showModal: boolean = false;
+export class FacturaComponent {
+  isModalOpen = false;
 
-  // Método para abrir el modal
-  openModal() {
-    this.showModal = true;
+   openModal() {
+    this.isModalOpen = true;
   }
 
-  // Método para cerrar el modal
-  closeModal() {
-    this.showModal = false;
+   closeModal() {
+    this.isModalOpen = false;
   }
 }

@@ -1,42 +1,36 @@
-<div class="overflow-x-auto">
-  <table class="min-w-full bg-white border border-gray-200">
+<!-- Botón para mostrar el modal -->
+<button (click)="showModal()" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+    Crear Cliente
+  </button>
+  
+  <!-- Modal -->
+  <app-crear-cliente *ngIf="modalVisible" (closeModal)="hideModal()"></app-crear-cliente>
+  
+  <!-- Tabla de clientes -->
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white border border-gray-200">
       <thead>
-          <tr class="bg-gray-100 text-gray-600">
-              <th class="px-6 py-3 text-left">ID Cliente</th>
-              <th class="px-6 py-3 text-left">Nombre</th>
-              <th class="px-6 py-3 text-left">Apellido</th>
-              <th class="px-6 py-3 text-left">Documento de Identidad</th>
-              <th class="px-6 py-3 text-left">Dirección</th>
-              <th class="px-6 py-3 text-left">Teléfono</th>
-              <th class="px-6 py-3 text-left">Email</th>
-              <th class="px-6 py-3 text-left">Fecha Registro</th>
-              <th class="px-6 py-3 text-left">Estado</th>
-          </tr>
+        <tr class="bg-gray-100 text-gray-600">
+          <th class="px-6 py-3 text-left">Nombre</th>
+          <th class="px-6 py-3 text-left">Apellido</th>
+          <th class="px-6 py-3 text-left">Documento de Identidad</th>
+          <th class="px-6 py-3 text-left">Dirección</th>
+          <th class="px-6 py-3 text-left">Teléfono</th>
+          <th class="px-6 py-3 text-left">Email</th>
+          <th class="px-6 py-3 text-left">Fecha Registro</th>
+        </tr>
       </thead>
       <tbody class="text-gray-600">
-          <tr>
-              <td class="px-6 py-4">1</td>
-              <td class="px-6 py-4">Carlos</td>
-              <td class="px-6 py-4">Pérez</td>
-              <td class="px-6 py-4">12345678</td>
-              <td class="px-6 py-4">Av. Arequipa 1234, Lima</td>
-              <td class="px-6 py-4">987654321</td>
-              <td class="px-6 py-4">carlos.perez.com</td>
-              <td class="px-6 py-4">2025-05-04</td>
-              <td class="px-6 py-4"><span class="text-green-500">Activo</span></td>
-          </tr>
-          <tr>
-              <td class="px-6 py-4">2</td>
-              <td class="px-6 py-4">Ana</td>
-              <td class="px-6 py-4">González</td>
-              <td class="px-6 py-4">23456789</td>
-              <td class="px-6 py-4">Calle Los Álamos 456, Lima</td>
-              <td class="px-6 py-4">987654322</td>
-              <td class="px-6 py-4">ana.gonzalez.com</td>
-              <td class="px-6 py-4">2025-05-04</td>
-              <td class="px-6 py-4"><span class="text-green-500">Activo</span></td>
-          </tr>
-          <!-- Agrega más filas aquí si es necesario -->
+        <tr *ngFor="let cliente of clientes">
+          <td class="px-6 py-4">{{ cliente.nombre }}</td>
+          <td class="px-6 py-4">{{ cliente.apellido }}</td>
+          <td class="px-6 py-4">{{ cliente.documentoIdentidad }}</td>
+          <td class="px-6 py-4">{{ cliente.direccion }}</td>
+          <td class="px-6 py-4">{{ cliente.telefono }}</td>
+          <td class="px-6 py-4">{{ cliente.email }}</td>
+          <td class="px-6 py-4">{{ cliente.fechaRegistro }}</td>
+        </tr>
       </tbody>
-  </table>
-</div>
+    </table>
+  </div>
+  

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { FacturaComponent } from '../factura/factura.component';
+import { Component } from "@angular/core";
+import { FacturaComponent } from "../factura/factura.component";
 
+   
 @Component({
   selector: 'app-list-factura',
   imports: [],
@@ -11,7 +12,7 @@ export default class ListFacturaComponent {
   facturaComponent = new FacturaComponent();
 
   openModal(): void {
-    this.facturaComponent.openModal();  // Aquí estás llamando a la función openModal
+    this.facturaComponent.openModal();  
   }
  
 }
