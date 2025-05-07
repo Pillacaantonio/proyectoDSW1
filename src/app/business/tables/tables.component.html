@@ -1,3 +1,12 @@
+
+<button (click)="showModal()" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+  Crear Producto
+</button>
+
+
+<!-- Modal -->
+<app-crear-producto *ngIf="modalVisible" (closeModal)="refreshProductosList()"></app-crear-producto>
+
 <div class="overflow-x-auto">
   <table class="min-w-full bg-white border border-gray-200">
       <thead>
@@ -12,14 +21,14 @@
           </tr>
       </thead>
       <tbody class="text-gray-600">
-           <tr>
-              <td class="px-6 py-4">1</td>
-              <td class="px-6 py-4">Ceviche</td>
-              <td class="px-6 py-4">Pescado crudo marinado en jugo de limón con ají</td>
-              <td class="px-6 py-4">$25.00</td>
-              <td class="px-6 py-4">50</td>
-              <td class="px-6 py-4">2025-05-04</td>
-              <td class="px-6 py-4"><span class="text-green-500">Activo</span></td>
+           <tr *ngFor="let producto of productos">
+             <td class="px-6 py-4">{{ producto.id_producto }}</td>
+             <td class="px-6 py-4">{{ producto.nombre }}</td>
+             <td class="px-6 py-4">{{ producto.descripcion }}</td>
+             <td class="px-6 py-4">{{ producto.precio }}</td>
+             <td class="px-6 py-4">{{ producto.stock }}</td>
+             <td class="px-6 py-4">{{ producto.fecharegistro | date:'yyyy-MM-dd'}}</td>
+             <td class="px-6 py-4">{{ producto.estado }}</td>
           </tr>
        </tbody>
   </table>

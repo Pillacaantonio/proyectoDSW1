@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Producto } from '../models/producto.interface';
+
 
 @Injectable({
   providedIn: 'root'
@@ -32,10 +34,9 @@ export class FacturaService {
   }
 
    crearProducto(producto: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/Producto/CrearProducto`, producto);
+    return this.http.post(`${this.apiUrl}/Producto/CrearProducto`, producto,{responseType: 'text' as 'json'});
   }
-
-   getProductos(): Observable<any> {
+   getListadoProductos(): Observable<any> {
     return this.http.get(`${this.apiUrl}/Producto/SearchProducto`);
   }
 
@@ -45,4 +46,5 @@ export class FacturaService {
   getListadoClientes(): Observable<any> {
     return this.http.get(`${this.apiUrl}/Cliente/ListadoClientes`);
   }
+
 }

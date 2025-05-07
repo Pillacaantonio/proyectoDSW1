@@ -31,14 +31,14 @@ export default class CrearClienteComponent {
   constructor(private facturaService: FacturaService) {}
 
    close() {
-    this.closeModal.emit(false);  
+    this.closeModal.emit(false);
   }
 
    createCliente() {
     this.facturaService.crearCliente(this.newClient).subscribe(
       (data) => {
         console.log('Cliente creado con éxito:', data);
-        this.close();  
+        this.close();
       },
       (error) => {
         console.error('Hubo un error al crear el cliente', error);

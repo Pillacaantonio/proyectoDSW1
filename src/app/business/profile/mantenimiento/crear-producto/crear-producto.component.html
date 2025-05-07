@@ -1,0 +1,55 @@
+
+<div class="modal-content">
+  <div *ngIf="alertVisible" class="bg-green-500 text-white p-4 rounded-md mb-4">
+    Producto creado con éxito.
+  </div>
+<div class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50" (click)="close()">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96" (click)="$event.stopPropagation()">
+      <h2 class="text-lg font-semibold mb-4">Crear Nuevo Producto</h2>
+
+      <form (ngSubmit)="createProducto()" class="space-y-4">
+         <div>
+          <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre Producto</label>
+          <input id="nombre" [(ngModel)]="newProducto.nombre" name="nombre" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+         <div>
+          <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripcion</label>
+          <input id="descripcion" [(ngModel)]="newProducto.descripcion" name="descripcion" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+         <div>
+          <label for="precio" class="block text-sm font-medium text-gray-700">Precio </label>
+          <input id="precio" [(ngModel)]="newProducto.precio" name="precio" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <!-- Dirección -->
+        <div>
+          <label for="stock" class="block text-sm font-medium text-gray-700">Stock</label>
+          <input id="stock" [(ngModel)]="newProducto.stock" name="stock" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <!-- Teléfono -->
+        <div>
+          <label for="fecharegistro" class="block text-sm font-medium text-gray-700">Fecha de Registro</label>
+          <input id="fecharegistro" [(ngModel)]="newProducto.fecharegistro" name="fecharegistro" type="date" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <!-- Estado -->
+        <div>
+          <label for="estado" class="block text-sm font-medium text-gray-700">Estado</label>
+          <select id="estado" [(ngModel)]="newProducto.estado" name="estado" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="true">Activo</option>
+            <option value="false">Inactivo</option>
+          </select>
+        </div>
+
+        <div class="flex justify-end gap-4 mt-4">
+          <!-- Botones -->
+          <button type="submit" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">Crear Producto</button>
+          <button type="button" (click)="close()" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">Cerrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
