@@ -1,45 +1,118 @@
-<p-table [value]="clientes" [tableStyle]="{'min-width': '60rem'}">
-  <!-- Encabezado -->
-  <ng-template pTemplate="header">
-      <tr>
-          <th pSortableColumn="nombre" style="width:20%">
-              Nombre <p-sortIcon field="nombre" />
-          </th>
-          <th pSortableColumn="apellido" style="width:20%">
-              Apellido <p-sortIcon field="apellido" />
-          </th>
-          <th pSortableColumn="documentoIdentidad" style="width:20%">
-              Documento de Identidad <p-sortIcon field="documentoIdentidad" />
-          </th>
-          <th pSortableColumn="direccion" style="width:20%">
-              Dirección <p-sortIcon field="direccion" />
-          </th>
-          <th pSortableColumn="telefono" style="width:20%">
-              Teléfono <p-sortIcon field="telefono" />
-          </th>
-          <th pSortableColumn="email" style="width:20%">
-              Email <p-sortIcon field="email" />
-          </th>
-          <th pSortableColumn="estado" style="width:20%">
-              Estado <p-sortIcon field="estado" />
-          </th>
-      </tr>
-  </ng-template>
+<div class="flex flex-wrap -mx-3">
+  <!-- Contenedor principal -->
+  <div class="flex-none w-full max-w-full px-3">
+    <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white shadow-xl rounded-2xl">
+      <!-- Título -->
+      <div class="flex justify-end mb-4">
+        <button
+          matRipple
+          class="flex items-center select-none rounded-lg bg-indigo-500 py-2 px-4 text-xs font-bold uppercase text-white shadow-md shadow-indigo-500/20 transition-all hover:bg-indigo-600 hover:shadow-lg hover:shadow-indigo-500/40 focus:opacity-85 active:opacity-85 disabled:opacity-50"
+          type="button"
+          (click)="openAdd()"
+          data-ripple-light="true">
+          <i class="fas fa-plus mr-2"></i> Nueva Cliente
+        </button>
+      </div>
 
-  <!-- Cuerpo de la tabla -->
-  <ng-template pTemplate="body" let-cliente>
-      <tr>
-          <td>{{ cliente.nombre }}</td>
-          <td>{{ cliente.apellido }}</td>
-          <td>{{ cliente.documentoIdentidad }}</td>
-          <td>{{ cliente.direccion }}</td>
-          <td>{{ cliente.telefono }}</td>
-          <td>{{ cliente.email }}</td>
-          <td>
-              <span [ngClass]="cliente.estado ? 'text-green-600' : 'text-red-600'">
-                  {{ cliente.estado ? 'Activo' : 'Inactivo' }}
-              </span>
-          </td>
-      </tr>
-  </ng-template>
-</p-table>
+      <!-- Mensajes de carga o error -->
+      <div *ngIf="cargando" class="text-center py-4">
+        <p class="text-gray-700 text-sm font-medium">Cargando Clientes...</p>
+      </div>
+
+      <div *ngIf="mensajeError" class="text-center text-red-500 py-4">
+        <p class="text-sm">{{ mensajeError }}</p>
+      </div>
+
+      <!-- Tabla con PrimeNG -->
+      <div *ngIf="!cargando && clientes.length > 0" class="p-4">
+        <div class="overflow-auto rounded-lg shadow">
+          <p-table
+            [value]="clientes"
+            [paginator]="true"
+            [rows]="10"
+            [rowsPerPageOptions]="[10, 25, 50]"
+            [scrollable]="true"
+            scrollHeight="400px"
+            dataKey="func_icod_funeraria"
+            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+            [style]="{ 'font-size': '0.8rem' }"
+          >
+            <!-- Encabezado -->
+            <ng-template pTemplate="header">
+              <tr class="bg-white-600 text-white text-xs">
+               
+                <th pSortableColumn="func_iid_funeraria"
+                class="p-2 text-sm font-semibold tracking-wide text-center bg-white-500 min-w-[200px]">
+                Nombre
+                <p-sortIcon field="func_iid_funeraria"></p-sortIcon>
+              </th>
+              <th pSortableColumn="func_vrazon_social"
+              class="p-2 text-sm font-semibold tracking-wide text-center bg-gray-100 min-w-[200px]">
+              Apellido<p-sortIcon field="func_vrazon_social"></p-sortIcon></th>
+
+              <th pSortableColumn="documentoIdentidad"
+              class="p-2 text-sm font-semibold tracking-wide text-center bg-gray-100 min-w-[200px]">
+              Doc. Identidad<p-sortIcon field="documentoIdentidad"></p-sortIcon></th>
+
+              <th pSortableColumn="direccion"
+              class="p-2 text-sm font-semibold tracking-wide text-center bg-white-500 min-w-[200px]">
+              Direccion<p-sortIcon field="direccion"></p-sortIcon></th>
+
+              <th pSortableColumn="telefono"
+              class="p-2 text-sm font-semibold tracking-wide text-center bg-white-500 min-w-[200px]">
+              Telefono<p-sortIcon field="telefono"></p-sortIcon></th>
+
+              <th pSortableColumn="email"
+              class="p-2 text-sm font-semibold tracking-wide text-center bg-white-500 min-w-[200px]">
+              Email<p-sortIcon field="email"></p-sortIcon></th>
+
+              <th pSortableColumn="fechaRegistro"
+              class="p-2 text-sm font-semibold tracking-wide text-center bg-gray-100 min-w-[200px]">
+              FechaRegistro<p-sortIcon field="fechaRegistro"></p-sortIcon></th>
+
+              <th pSortableColumn="estado"
+              class="p-2 text-sm font-semibold tracking-wide text-center bg-gray-500 min-w-[200px]">
+               Estado <p-sortIcon field="estado"></p-sortIcon></th>
+
+            
+
+               </tr>
+            </ng-template>
+
+            <!-- Cuerpo -->
+            <ng-template pTemplate="body" let-item>
+              <tr class="hover:bg-gray-500 text-xs">
+              
+
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.nombre }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.apellido }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.documentoIdentidad }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.direccion }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.telefono }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.email }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.fechaRegistro }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">
+                  <span
+                    [ngClass]="item.estado? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'">
+                    {{ item.estado ? 'Activo' : 'Inactivo' }}
+                  </span>
+                </td>
+              </tr>
+            </ng-template>
+
+             <ng-template pTemplate="paginatorleft">
+              <p-button type="button" icon="pi pi-angle-left" styleClass="p-button-text"></p-button>
+            </ng-template>
+            <ng-template pTemplate="paginatorright">
+              <p-button type="button" icon="pi pi-angle-right" styleClass="p-button-text"></p-button>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+
+       <div *ngIf="!cargando && clientes.length === 0 && !mensajeError" class="text-center py-4">
+        <p class="text-gray-700 text-sm">No hay clientes disponibles.</p>
+      </div>
+    </div>
+  </div>
+</div>

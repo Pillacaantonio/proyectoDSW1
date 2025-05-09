@@ -19,7 +19,7 @@ export class ModificarClienteComponent {
     telefono: '',
     email: '',
     fechaRegistro: new Date(),
-    etado: true
+    estado: true
   };
 
   constructor() {}

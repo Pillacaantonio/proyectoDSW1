@@ -7,5 +7,5 @@ export interface Cliente {
     telefono: string;
     email: string;
     fechaRegistro: Date;
-    etado: boolean;
+    estado: boolean;
   }

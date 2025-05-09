@@ -27,9 +27,9 @@ export default class ProfileComponent implements OnInit {
   obtenerListadoProductos(): void {
     this.facturaService.getListadoProductos().subscribe(
       (data) => {
-        this.productos = data.map((producto: { etado: number; }) => ({
+        this.productos = data.map((producto: { estado: number; }) => ({
           ...producto,
-          etado: producto.etado === 1  // Convierte el estado a booleano
+          estado: producto.estado === 1  // Convierte el estado a booleano
         }));
       },
       (error) => {

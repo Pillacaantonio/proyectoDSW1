@@ -1,16 +1,22 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter ,withComponentInputBinding} from '@angular/router';
-
- import { routes } from './app.routes';
- 
+import { provideRouter ,withComponentInputBinding} from '@angular/router'; 
+ import { routes } from './app.routes'; 
  import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-
-export const appConfig: ApplicationConfig = {
+import { getFirestore, provideFirestore } from '@angular/fire/firestore'; 
+ import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeng/themes/aura';
+ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes, withComponentInputBinding()),
+    provideRouter(routes, withComponentInputBinding()),  
+    providePrimeNG({
+      theme: {
+        preset: Aura
+      }
+    }),
+
+    
      provideFirebaseApp(() =>
       initializeApp({
         projectId: 'proyecto-servicio-50409',
@@ -26,3 +32,7 @@ export const appConfig: ApplicationConfig = {
     provideFirestore(() => getFirestore()),
   ],
 };
+function provideAnimationsAsync(): import("@angular/router").RouterFeatures {
+  throw new Error('Function not implemented.');
+}
+
