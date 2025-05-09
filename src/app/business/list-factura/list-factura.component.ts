@@ -13,6 +13,7 @@ export default class ListFacturaComponent {
 
   openModal(): void {
     this.facturaComponent.openModal();  
+    
   }
  
 }

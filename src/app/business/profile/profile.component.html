@@ -1,36 +1,45 @@
-<!-- Botón para mostrar el modal -->
-<button (click)="showModal()" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-    Crear Cliente
-  </button>
-  
-  <!-- Modal -->
-  <app-crear-cliente *ngIf="modalVisible" (closeModal)="hideModal()"></app-crear-cliente>
-  
-  <!-- Tabla de clientes -->
-  <div class="overflow-x-auto">
-    <table class="min-w-full bg-white border border-gray-200">
-      <thead>
-        <tr class="bg-gray-100 text-gray-600">
-          <th class="px-6 py-3 text-left">Nombre</th>
-          <th class="px-6 py-3 text-left">Apellido</th>
-          <th class="px-6 py-3 text-left">Documento de Identidad</th>
-          <th class="px-6 py-3 text-left">Dirección</th>
-          <th class="px-6 py-3 text-left">Teléfono</th>
-          <th class="px-6 py-3 text-left">Email</th>
-          <th class="px-6 py-3 text-left">Fecha Registro</th>
-        </tr>
-      </thead>
-      <tbody class="text-gray-600">
-        <tr *ngFor="let cliente of clientes">
-          <td class="px-6 py-4">{{ cliente.nombre }}</td>
-          <td class="px-6 py-4">{{ cliente.apellido }}</td>
-          <td class="px-6 py-4">{{ cliente.documentoIdentidad }}</td>
-          <td class="px-6 py-4">{{ cliente.direccion }}</td>
-          <td class="px-6 py-4">{{ cliente.telefono }}</td>
-          <td class="px-6 py-4">{{ cliente.email }}</td>
-          <td class="px-6 py-4">{{ cliente.fechaRegistro }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
+<p-table [value]="clientes" [tableStyle]="{'min-width': '60rem'}">
+  <!-- Encabezado -->
+  <ng-template pTemplate="header">
+      <tr>
+          <th pSortableColumn="nombre" style="width:20%">
+              Nombre <p-sortIcon field="nombre" />
+          </th>
+          <th pSortableColumn="apellido" style="width:20%">
+              Apellido <p-sortIcon field="apellido" />
+          </th>
+          <th pSortableColumn="documentoIdentidad" style="width:20%">
+              Documento de Identidad <p-sortIcon field="documentoIdentidad" />
+          </th>
+          <th pSortableColumn="direccion" style="width:20%">
+              Dirección <p-sortIcon field="direccion" />
+          </th>
+          <th pSortableColumn="telefono" style="width:20%">
+              Teléfono <p-sortIcon field="telefono" />
+          </th>
+          <th pSortableColumn="email" style="width:20%">
+              Email <p-sortIcon field="email" />
+          </th>
+          <th pSortableColumn="estado" style="width:20%">
+              Estado <p-sortIcon field="estado" />
+          </th>
+      </tr>
+  </ng-template>
+
+  <!-- Cuerpo de la tabla -->
+  <ng-template pTemplate="body" let-cliente>
+      <tr>
+          <td>{{ cliente.nombre }}</td>
+          <td>{{ cliente.apellido }}</td>
+          <td>{{ cliente.documentoIdentidad }}</td>
+          <td>{{ cliente.direccion }}</td>
+          <td>{{ cliente.telefono }}</td>
+          <td>{{ cliente.email }}</td>
+          <td>
+              <span [ngClass]="cliente.estado ? 'text-green-600' : 'text-red-600'">
+                  {{ cliente.estado ? 'Activo' : 'Inactivo' }}
+              </span>
+          </td>
+      </tr>
+  </ng-template>
+</p-table>

@@ -4,16 +4,23 @@ import { HttpClientModule } from '@angular/common/http';
 import { FacturaService } from '../../services/factura.service';
 import { Cliente } from '../../models/cliente.interface';
 import CrearClienteComponent from './mantenimiento/crear-cliente/crear-cliente.component';
+import { ButtonModule } from 'primeng/button'; 
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
   standalone: true,
-  imports: [CommonModule, HttpClientModule, CrearClienteComponent],
+  imports: [CommonModule, HttpClientModule, CrearClienteComponent,ButtonModule,TableModule],
   providers: [FacturaService]
 })
 export default class ProfileComponent implements OnInit {
+cargando: any;
+mensajeError: any;
+openAdd() {
+throw new Error('Method not implemented.');
+}
 
   clientes: Cliente[] = [];
   modalVisible = false;  // Controla la visibilidad del modal
@@ -38,18 +45,15 @@ export default class ProfileComponent implements OnInit {
     );
   }
 
-  // Mostrar el modal
-  showModal() {
+   showModal() {
     this.modalVisible = true;
   }
 
-  // Ocultar el modal
-  hideModal() {
+   hideModal() {
     this.modalVisible = false;
   }
 
-  // Método que se ejecuta cuando se emite el evento de refrescar la lista
-  refreshClientesList() {
+   refreshClientesList() {
     this.obtenerListadoClientes();
     this.hideModal();  // Cierra el modal después de actualizar la lista
   }
