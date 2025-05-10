@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { Producto } from '../models/producto.interface';
 
 
@@ -18,16 +18,25 @@ export class FacturaService {
   }
 
    crearCliente(cliente: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/Cliente/CrearCliente`, cliente);
+    return this.http.post(`${this.apiUrl}/Cliente/CrearCliente`, cliente,{responseType: 'text' as 'json'});
   }
+ eliminarCliente(id_cliente: number): Observable<any> {
+  return this.http.delete(`${this.apiUrl}/Cliente/EliminarCliente/${id_cliente}`, { responseType: 'text' })
+    .pipe(
+      catchError((error) => {
+        console.error('Error al eliminar cliente', error);
+        return throwError(error);
+      })
+    );
+}
 
    getCliente(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/Cliente/GetOneCliente/${id}`);
   }
 
-   actualizarCliente(id: number, cliente: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/Cliente/Update/${id}`, cliente);
-  }
+actualizarCliente(id: number, cliente: any): Observable<any> {
+  return this.http.put(`${this.apiUrl}/Cliente/Update/${id}`, cliente, { responseType: 'text' });
+}
 
    getFacDetalle(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/FacDetalle/GetOneFacDetalle/${id}`);
