@@ -24,7 +24,7 @@ import { Component, EventEmitter, Output, Inject, inject, OnInit } from '@angula
 export default class CrearProductoComponent implements OnInit{
 
   public registerForm!: FormGroup;
-  public cargando: boolean = false; // Indicador de carga
+  public cargando: boolean = false;
   private generalService = inject(FacturaService);
   item: any;
   viewOnly: boolean = false;
@@ -89,9 +89,9 @@ export default class CrearProductoComponent implements OnInit{
     });
   }
   showAlert() {
-    this.alertVisible = true; // Mostrar la alerta
+    this.alertVisible = true;
     setTimeout(() => {
-      this.alertVisible = false; // Ocultar la alerta después de 3 segundos
+      this.alertVisible = false;
     }, 4000);
   }
 

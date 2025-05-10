@@ -1,54 +1,54 @@
 <div class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50" (click)="close()">
   <div class="bg-white p-6 rounded-lg shadow-lg w-96" (click)="$event.stopPropagation()">
-    <h2 class="text-lg font-semibold mb-4">Crear Nuevo Cliente</h2>
+    <h2 style="color: #1E90FF;" class="text-lg font-semibold mb-4">Crear Nuevo Cliente</h2>
 
     <form (ngSubmit)="createCliente()" [formGroup]="registerForm" class="space-y-4">
       <!-- Nombre -->
       <div>
-        <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
-        <input id="nombre" formControlName="nombre" required
+        <label for="Nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+        <input id="Nombre" formControlName="Nombre" required
           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
       </div>
 
       <!-- Apellido -->
       <div>
-        <label for="apellido" class="block text-sm font-medium text-gray-700">Apellido</label>
-        <input id="apellido" formControlName="apellido" required
+        <label for="Apellido" class="block text-sm font-medium text-gray-700">Apellido</label>
+        <input id="Apellido" formControlName="Apellido" required
           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
       </div>
 
       <!-- Documento de Identidad -->
       <div>
-        <label for="documentoIdentidad" class="block text-sm font-medium text-gray-700">Documento de Identidad</label>
-        <input id="documentoIdentidad" formControlName="documentoIdentidad" required
+        <label for="DocumentoIdentidad" class="block text-sm font-medium text-gray-700">Documento de Identidad</label>
+        <input id="DocumentoIdentidad" formControlName="DocumentoIdentidad" required
           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
       </div>
 
       <!-- Dirección -->
       <div>
-        <label for="direccion" class="block text-sm font-medium text-gray-700">Dirección</label>
-        <input id="direccion" formControlName="direccion" required
+        <label for="Direccion" class="block text-sm font-medium text-gray-700">Dirección</label>
+        <input id="Direccion" formControlName="Direccion" required
           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
       </div>
 
       <!-- Teléfono -->
       <div>
-        <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
-        <input id="telefono" formControlName="telefono" required
+        <label for="Telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
+        <input id="Telefono" formControlName="Telefono" required
           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
       </div>
 
       <!-- Email -->
       <div>
-        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-        <input id="email" formControlName="email" type="email" required
+        <label for="Email" class="block text-sm font-medium text-gray-700">Email</label>
+        <input id="Email" formControlName="Email" type="email" required
           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
       </div>
 
       <!-- Fecha de Registro -->
       <div>
-        <label for="fechaRegistro" class="block text-sm font-medium text-gray-700">Fecha de Registro</label>
-        <input id="fechaRegistro" formControlName="fechaRegistro" type="date" required
+        <label for="FechaRegistro" class="block text-sm font-medium text-gray-700">Fecha de Registro</label>
+        <input id="FechaRegistro" formControlName="FechaRegistro" type="date" required
           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
       </div>
 
@@ -64,7 +64,7 @@
 
       <!-- Botones -->
       <div class="flex justify-end gap-4 mt-4">
-        <button (click)="createCliente()" matRipple [disabled]="registerForm.invalid || cargando"
+        <button type="submit" matRipple [disabled]="registerForm.invalid || cargando"
           class="middle none center rounded-lg bg-indigo-500 py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-indigo-500/20 transition-all hover:shadow-lg hover:shadow-indigo-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
           Guardar
         </button>

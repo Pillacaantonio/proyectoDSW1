@@ -1,0 +1,117 @@
+<div
+  class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50"
+  (click)="close()"
+>
+  <div
+    class="bg-white p-6 rounded-lg shadow-lg w-96"
+    (click)="$event.stopPropagation()"
+  >
+    <div *ngIf="alertVisible" class="bg-green-500 text-white p-4 rounded-md mb-4">
+      Producto modificado correctamente
+    </div>
+    <h2 style="color: #1E90FF;" class="text-lg font-semibold mb-4 text-center">Editar Producto</h2>
+
+    <form [formGroup]="editForm" (ngSubmit)="updateProducto()" class="space-y-4">
+      <!-- Id Cliente -->
+      <div>
+        <label
+          for="id_producto"
+          class="block text-sm font-medium text-gray-700 only:read-only:"
+          >Id Cliente</label
+        >
+        <input
+          id="id_producto"
+          formControlName="id_producto"
+          readonly
+          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <!-- Nombre -->
+      <div>
+        <label for="nombre" class="block text-sm font-medium text-gray-700"
+          >Nombre</label
+        >
+        <input
+          id="nombre"
+          formControlName="nombre"
+          required
+           [readonly]="isViewMode"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <div>
+        <label for="descripcion" class="block text-sm font-medium text-gray-700"
+          >Descripción</label
+        >
+        <input
+          id="descripcion"
+          formControlName="descripcion"
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <div>
+        <label
+          for="precio"
+          class="block text-sm font-medium text-gray-700"
+          >Precio</label
+        >
+        <input
+          id="precio"
+          formControlName="precio"
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <div>
+        <label for="stock" class="block text-sm font-medium text-gray-700"
+          >Stock</label
+        >
+        <input
+          id="stock"
+          formControlName="stock"
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <div>
+        <label
+          for="fecharegistro"
+          class="block text-sm font-medium text-gray-700"
+          >Fecha de Registro</label
+        >
+        <input
+          id="fecharegistro"
+          formControlName="fecharegistro"
+          type="date"
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <!-- Botones -->
+      <div class="flex justify-end gap-4 mt-4">
+        <button
+          type="submit"
+          matRipple
+          [disabled]="editForm.invalid"
+          class="middle none center rounded-lg bg-indigo-500 py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-indigo-500/20 transition-all hover:shadow-lg hover:shadow-indigo-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+        >
+          Guardar
+        </button>
+        <button
+          type="button"
+          (click)="close()"
+          class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+        >
+          Cerrar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
