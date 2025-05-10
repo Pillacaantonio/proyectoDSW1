@@ -9,7 +9,7 @@ import { Producto } from '../models/producto.interface';
 })
 export class FacturaService {
 
-  private apiUrl = 'https://localhost:44363/api';
+  private apiUrl = 'https://localhost:7079/api';
 
   constructor(private http: HttpClient) { }
 
