@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { MatDialog } from '@angular/material/dialog';
 import CrearClienteComponent from './mantenimiento/crear-cliente/crear-cliente.component';
+<<<<<<< HEAD
 import {
   state,
   style,
@@ -15,6 +16,8 @@ import {
   trigger,
 } from '@angular/animations';
 import { ModificarClienteComponent } from './mantenimiento/modificar-cliente/modificar-cliente.component';
+=======
+>>>>>>> eab6072594cb86c948acb69437f134bfcc934e36
 
 @Component({
   selector: 'app-profile',
@@ -48,23 +51,60 @@ import { ModificarClienteComponent } from './mantenimiento/modificar-cliente/mod
   ],
 })
 export default class ProfileComponent implements OnInit {
+<<<<<<< HEAD
   cargando: boolean = false;
   currentPage: number = 1;
+=======
+ openView() {
+throw new Error('Method not implemented.');
+}
+cargando: boolean = false;
+currentPage: number = 1;
+>>>>>>> eab6072594cb86c948acb69437f134bfcc934e36
   pageSize: number = 5;
   totalPages: number = 0;
   paginatedCliete: Cliente[] = [];
   public permision!: boolean;
   mensajeError: string = '';
 
+<<<<<<< HEAD
   overlayState: string = 'start';
 
   clientes: Cliente[] = [];
   modalVisible = false;
+=======
+
+>>>>>>> eab6072594cb86c948acb69437f134bfcc934e36
 
   constructor(
     private facturaService: FacturaService,
     private dialog: MatDialog
+<<<<<<< HEAD
   ) {}
+=======
+  ) { }
+
+
+ openAdd() {
+  this.dialog
+      .open(CrearClienteComponent, {
+        width: '750px',
+        disableClose: true,
+      })
+      .afterClosed()
+      .subscribe((result: any) => {
+        if (result) {
+           this.obtenerListadoClientes();
+          console.log('Modal cerrado con resultado:', result);
+        }
+      });
+ }
+
+  clientes: Cliente[] = [];
+  modalVisible = false;
+  overlayState = 'start';
+
+>>>>>>> eab6072594cb86c948acb69437f134bfcc934e36
 
   ngOnInit(): void {
     this.obtenerListadoClientes();
@@ -92,7 +132,11 @@ export default class ProfileComponent implements OnInit {
       (data) => {
          this.clientes = data.map((cliente: { estado: number }) => ({
           ...cliente,
+<<<<<<< HEAD
           estado: cliente.estado === 1,  
+=======
+          estado: cliente.estado === 1
+>>>>>>> eab6072594cb86c948acb69437f134bfcc934e36
         }));
 
          this.totalPages = Math.ceil(this.clientes.length / this.pageSize);

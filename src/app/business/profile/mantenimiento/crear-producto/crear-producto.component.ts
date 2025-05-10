@@ -1,62 +1,92 @@
-import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FacturaService } from '../../../../services/factura.service';
 import { Producto } from '../../../../models/producto.interface';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, EventEmitter, Output, Inject, inject, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-crear-producto',
   templateUrl: './crear-producto.component.html',
   styleUrls: ['./crear-producto.component.scss'],
   standalone: true,
-  imports: [CommonModule, HttpClientModule, FormsModule],
+  imports: [CommonModule,
+   HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDialogModule],
   providers: [FacturaService]
 })
-export default class CrearProductoComponent {
-  newProducto: Producto = {
-    id_producto: 0,
-    nombre: '',
-    descripcion: '',
-    precio: 0,
-    stock: 0,
-    fecharegistro: new Date(),
-    estado: 0 // Cambiado a number para que coincida con el backend
-  };
+export default class CrearProductoComponent implements OnInit{
+
+  public registerForm!: FormGroup;
+  public cargando: boolean = false; // Indicador de carga
+  private generalService = inject(FacturaService);
+  item: any;
+  viewOnly: boolean = false;
+  isLoadingResults = true;
+  alertVisible: boolean = false;
+  constructor(
+    public dialogRef: MatDialogRef<CrearProductoComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private facturaService: FacturaService
+  ) {}
+
+  ngOnInit(): void {
+    this.inicializarFormulario();
+  }
+
+  private inicializarFormulario(): void {
+    this.registerForm = new FormGroup({
+      nombre: new FormControl('', [Validators.required, Validators.maxLength(255)]),
+      descripcion: new FormControl('', [Validators.required, Validators.maxLength(255)]),
+      precio: new FormControl(null, [Validators.required, Validators.pattern(/^\d+(\.\d+)?$/)]),
+      stock: new FormControl(null, [Validators.required,Validators.pattern(/^\d+(\.\d+)?$/)]),
+      fecharegistro: new FormControl(null, [Validators.required]),
+      estado: new FormControl(null, [Validators.required])
+    });
+  }
 
   @Output() closeModal: EventEmitter<boolean> = new EventEmitter();
-  alertVisible: boolean = false;
 
-  constructor(private facturaService: FacturaService) {}
-
-   close() {
-    this.closeModal.emit(false);
+  close() {
+  this.closeModal.emit(true);
+  this.dialogRef.close(true);
   }
 
-   createProducto() {
-    this.newProducto.estado = this.newProducto.estado ? 1 : 0; // Convertir a número para que coincida con el backend
-    this.facturaService.crearProducto(this.newProducto).subscribe(
-      (data) => {
-        console.log('Producto creado con éxito:', data);
-        this.showAlert();
-        this.resetForm(); // Limpiar los inputs
-        //this.closeModal.emit(true); // Emitir true para indicar éxito
-      },
-      (error) => {
-        console.error('Hubo un error al crear el producto', error);
-      }
-    );
+  createProducto() {
+    if (this.registerForm.valid) {
+      const producto = this.registerForm.value;
+      producto.estado = producto.estado ? 1 : 0;
+      producto.fecharegistro = new Date(producto.fecharegistro).toISOString();
+
+      this.facturaService.crearProducto(producto).subscribe(
+        (data) => {
+          console.log('Producto creado con éxito:', data);
+          this.showAlert();
+          this.resetForm(); // Limpiar los inputs
+        },
+        (error) => {
+          console.error('Hubo un error al crear el producto', error);
+          // Mostrar los errores de validación recibidos del backend
+          console.log('Errores de validación:', error.error.errors);
+        }
+      );
+    }
   }
+
   resetForm() {
-    this.newProducto = {
-      id_producto: 0,
+    this.registerForm.reset({
       nombre: '',
       descripcion: '',
-      precio: 0,
-      stock: 0,
-      fecharegistro: new Date(),
-      estado: 0
-    };
+      precio: null,
+      stock: null,
+      fecharegistro: null
+    });
   }
   showAlert() {
     this.alertVisible = true; // Mostrar la alerta
@@ -64,4 +94,6 @@ export default class CrearProductoComponent {
       this.alertVisible = false; // Ocultar la alerta después de 3 segundos
     }, 4000);
   }
+
 }
+

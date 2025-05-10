@@ -32,8 +32,8 @@
           <p-table
             [value]="clientes"
             [paginator]="true"
-            [rows]="10"
-            [rowsPerPageOptions]="[10, 25, 50]"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 15]"
             [scrollable]="true"
             scrollHeight="400px"
             dataKey="func_icod_funeraria"
@@ -43,6 +43,7 @@
             <!-- Encabezado -->
             <ng-template pTemplate="header">
               <tr class="bg-white-600 text-white text-xs">
+<<<<<<< HEAD
                 <th
                   pSortableColumn="editar"
                   class="p-2 text-sm font-semibold tracking-wide text-center bg-white-30 min-w-[200px]"
@@ -113,6 +114,63 @@
                 >
                   Estado <p-sortIcon field="estado"></p-sortIcon>
                 </th>
+=======
+
+                <th pSortableColumn="nombre"
+                class="p-2 text-sm font-semibold tracking-wide text-center bg-gray-300 min-w-[200px] text-black !important">
+                Nombre
+                <p-sortIcon field="nombre"></p-sortIcon>
+              </th>
+              <th pSortableColumn="apellido"
+              class="p-2 text-sm font-semibold tracking-wide text-center bg-gray-100 min-w-[200px] text-black!important">
+              Apellido<p-sortIcon field="apellido"></p-sortIcon></th>
+
+              <th pSortableColumn="documentoIdentidad"
+              class="p-2 text-sm font-semibold tracking-wide text-center bg-gray-100 min-w-[200px] text-black !important">
+              Doc. Identidad<p-sortIcon field="documentoIdentidad"></p-sortIcon></th>
+
+              <th pSortableColumn="direccion"
+              class="p-2 text-sm font-semibold tracking-wide text-center bg-white-500 min-w-[200px] text-black !important">
+              Direccion<p-sortIcon field="direccion"></p-sortIcon></th>
+
+              <th pSortableColumn="telefono"
+              class="p-2 text-sm font-semibold tracking-wide text-center bg-white-500 min-w-[200px] text-black !important">
+              Telefono<p-sortIcon field="telefono"></p-sortIcon></th>
+
+              <th pSortableColumn="email"
+              class="p-2 text-sm font-semibold tracking-wide text-center bg-white-500 min-w-[200px] text-black !important">
+              Email<p-sortIcon field="email"></p-sortIcon></th>
+
+              <th pSortableColumn="fechaRegistro"
+              class="p-2 text-sm font-semibold tracking-wide text-center bg-gray-100 min-w-[200px] text-black !important">
+              FechaRegistro<p-sortIcon field="fechaRegistro"></p-sortIcon></th>
+
+              <th pSortableColumn="estado"
+              class="p-2 text-sm font-semibold tracking-wide text-center bg-gray-500 min-w-[200px] text-black !important">
+               Estado <p-sortIcon field="estado"></p-sortIcon></th>
+
+               </tr>
+            </ng-template>
+
+            <!-- Cuerpo -->
+            <ng-template pTemplate="body" let-item>
+              <tr class="hover:bg-gray-500 text-xs">
+
+
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.nombre }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.apellido }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.documentoIdentidad }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.direccion }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.telefono }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.email }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.fechaRegistro | date:'yyyy-MM-dd'}}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">
+                  <span
+                    [ngClass]="item.estado? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'">
+                    {{ item.estado ? 'Activo' : 'Inactivo' }}
+                  </span>
+                </td>
+>>>>>>> eab6072594cb86c948acb69437f134bfcc934e36
               </tr>
             </ng-template>
 

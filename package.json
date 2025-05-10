@@ -11,6 +11,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^19.2.10",
+<<<<<<< HEAD
     "@angular/cdk": "19.2.15",
     "@angular/common": "^19.0.0",
     "@angular/compiler": "^19.2.9",
@@ -21,6 +22,18 @@
     "@angular/platform-browser": "^19.2.9",
     "@angular/platform-browser-dynamic": "^19.2.9",
     "@angular/router": "^19.2.9",
+=======
+    "@angular/cdk": "^19.2.15",
+    "@angular/common": "^19.2.10",
+    "@angular/compiler": "^19.2.10",
+    "@angular/core": "19.2.10",
+    "@angular/fire": "19.1.0",
+    "@angular/forms": "^19.2.10",
+    "@angular/material": "^19.2.15",
+    "@angular/platform-browser": "^19.2.10",
+    "@angular/platform-browser-dynamic": "^19.2.10",
+    "@angular/router": "^19.2.10",
+>>>>>>> eab6072594cb86c948acb69437f134bfcc934e36
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@heroicons/vue": "^2.2.0",
     "@ng-select/ng-select": "^14.7.0",
