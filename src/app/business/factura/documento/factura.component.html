@@ -1,0 +1,118 @@
+<h1 mat-dialog-title class="modal-header">
+  <mat-icon class="header-icon">receipt</mat-icon>
+  Nueva Factura
+</h1>
+
+<mat-dialog-content class="compact-content">
+  <!-- Sección Cliente -->
+  <section class="client-section">
+    <div *ngIf="!clienteSeleccionado">
+      <h3 class="section-title">Seleccionar Cliente</h3>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Buscar cliente</mat-label>
+        <input matInput [(ngModel)]="clienteBusqueda" (input)="filtrarClientes()">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      <div class="client-list">
+        <div *ngFor="let cliente of clientesFiltrados" class="client-item"
+             (click)="seleccionarCliente(cliente)">
+          <div class="client-name">{{ cliente.nombre }}</div>
+          <div class="client-doc">{{ cliente.documento }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="clienteSeleccionado" class="selected-client">
+      <div class="client-header">
+        <h3 class="client-title">{{ clienteSeleccionado.nombre }}</h3>
+        <button mat-icon-button (click)="clienteSeleccionado = null">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="client-details">
+        <div><strong>RUC/DNI:</strong> {{ clienteSeleccionado.documento }}</div>
+        <div><strong>Dirección:</strong> {{ clienteSeleccionado.direccion }}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Productos -->
+  <section class="products-section">
+    <div class="products-header">
+      <h3 class="section-title">Productos ({{ productosSeleccionados.length }})</h3>
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Buscar productos</mat-label>
+        <input matInput [(ngModel)]="productoBusqueda" (input)="filtrarProductos()">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="products-grid">
+      <!-- Productos disponibles -->
+      <div class="available-products">
+        <div *ngFor="let producto of productosFiltrados" class="product-card"
+             (click)="agregarProducto(producto)">
+          <div class="product-info">
+            <div class="product-name">{{ producto.nombre }}</div>
+            <div class="product-desc">{{ producto.descripcion }}</div>
+          </div>
+          <div class="product-price">{{ producto.precio | currency:'S/.' }}</div>
+        </div>
+      </div>
+
+      <!-- Productos seleccionados -->
+      <div class="selected-products">
+        <div *ngIf="productosSeleccionados.length === 0" class="empty-state">
+          <mat-icon>info</mat-icon>
+          <p>No hay productos agregados</p>
+        </div>
+
+        <div *ngFor="let item of productosSeleccionados; let i = index" class="selected-item">
+          <div class="item-details">
+            <div class="item-name">{{ item.producto.nombre }}</div>
+            <div class="item-quantity">
+              <button mat-icon-button (click)="ajustarCantidad(i, -1)">
+                <mat-icon>remove</mat-icon>
+              </button>
+              <span>{{ item.cantidad }}</span>
+              <button mat-icon-button (click)="ajustarCantidad(i, 1)">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </div>
+          <div class="item-total">
+            {{ item.cantidad * item.producto.precio | currency:'S/.' }}
+            <button mat-icon-button (click)="removerProducto(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resumen -->
+  <section class="summary-section">
+    <div class="summary-row">
+      <span>Subtotal:</span>
+      <span>{{ calcularSubtotal() | currency:'S/.' }}</span>
+    </div>
+    <div class="summary-row">
+      <span>IGV (18%):</span>
+      <span>{{ calcularIgv() | currency:'S/.' }}</span>
+    </div>
+    <div class="summary-row total">
+      <span>Total:</span>
+      <span>{{ calcularTotal() | currency:'S/.' }}</span>
+    </div>
+  </section>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="compact-actions">
+  <button mat-stroked-button mat-dialog-close>Cancelar</button>
+  <button mat-raised-button color="primary" (click)="generarFactura()"
+          [disabled]="!clienteSeleccionado || productosSeleccionados.length === 0">
+    <mat-icon>check_circle</mat-icon>
+    Generar Factura
+  </button>
+</mat-dialog-actions>

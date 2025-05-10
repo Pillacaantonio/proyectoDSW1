@@ -17,13 +17,9 @@ export default [
         path: 'tables',
         loadComponent: () => import('../../business/tables/tables.component')
       },
-      // {
-      //   path: 'factura',
-      //   loadComponent: () => import('../../business/factura/factura.component')
-      // },
       {
-        path: 'list-factura',
-        loadComponent: () => import('../../business/list-factura/list-factura.component')
+        path: 'factura',
+        loadComponent: () => import('../../business/factura/lista/factura-lista.component')
       },
        {
         path: '',
