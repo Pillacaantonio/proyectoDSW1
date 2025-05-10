@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FacturaService } from '../../services/factura.service';
 import { Cliente } from '../../models/cliente.interface';
- import { ButtonModule } from 'primeng/button'; 
+import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { trigger, state, style, animate, transition } from '@angular/animations';  // Importa los módulos de animación
 import { MatDialog } from '@angular/material/dialog';
 import CrearClienteComponent from './mantenimiento/crear-cliente/crear-cliente.component';
- 
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -33,27 +33,26 @@ export default class ProfileComponent implements OnInit {
 throw new Error('Method not implemented.');
 }
 cargando: boolean = false;
-currentPage: number = 1;  
-  pageSize: number = 5;   
-  totalPages: number = 0; 
-  paginatedCliete: Cliente[] = [];  
+currentPage: number = 1;
+  pageSize: number = 5;
+  totalPages: number = 0;
+  paginatedCliete: Cliente[] = [];
   public permision!: boolean;
   mensajeError: string = '';
 
- 
+
 
   constructor(
     private facturaService: FacturaService,
-    private dialog: MatDialog 
-
+    private dialog: MatDialog
   ) { }
 
 
  openAdd() {
   this.dialog
       .open(CrearClienteComponent, {
-        width: '750px',  
-        disableClose: true,  
+        width: '750px',
+        disableClose: true,
       })
       .afterClosed()
       .subscribe((result: any) => {
@@ -65,8 +64,8 @@ currentPage: number = 1;
  }
 
   clientes: Cliente[] = [];
-  modalVisible = false;  
-  overlayState = 'start';   
+  modalVisible = false;
+  overlayState = 'start';
 
 
   ngOnInit(): void {
@@ -78,7 +77,7 @@ currentPage: number = 1;
       (data) => {
         this.clientes = data.map((cliente: { estado: number; }) => ({
           ...cliente,
-          estado: cliente.estado === 1  
+          estado: cliente.estado === 1
         }));
 
          this.overlayState = 'end';

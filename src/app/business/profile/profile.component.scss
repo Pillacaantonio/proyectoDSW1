@@ -1,0 +1,36 @@
+.rounded-lg {
+  overflow: visible !important; /* Permite que los elementos hijos sean visibles */
+  position: relative; /* Asegura que el contenedor no interfiera con elementos absolutos */
+ z-index: 1;
+}
+.relative {
+  overflow: visible !important; /* Asegura que los elementos hijos sean visibles */
+  position: relative; /* Permite que los elementos absolutos se posicionen correctamente */
+  z-index: 1; /* Asegura que el contenedor no interfiera con el menú desplegable */
+}
+.p-dropdown-panel {
+  z-index: 9999 !important; /* Ensure dropdown is above other elements */
+  position: absolute !important; /* Position outside parent flow */
+}
+body {
+  overflow: hidden; /* Desactiva el scroll temporalmente */
+}
+.p-table thead tr {
+  background-color: #d1d5db !important; /* Gris claro */
+  color: #000 !important; /* Letras negras */
+}
+.p-table tbody tr {
+  background-color: #fff !important; /* Fondo blanco */
+  color: #000 !important; /* Letras negras */
+}
+.p-table tbody tr:hover {
+  background-color: #f3f4f6 !important; /* Gris claro al pasar el mouse */
+}
+.p-table th {
+  background-color: #d1d5db !important; /* Gris claro */
+  color: #000 !important; /* Letras negras */
+}
+.p-table td {
+  background-color: #fff !important; /* Fondo blanco */
+  color: #000 !important; /* Letras negras */
+}

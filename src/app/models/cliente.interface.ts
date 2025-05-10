@@ -6,6 +6,6 @@ export interface Cliente {
     direccion: string;
     telefono: string;
     email: string;
-    fechaRegistro: Date;
+    FechaRegistro: Date;
     estado: boolean;
   }

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { AuthStateService } from '../data-access/auth-state.service';
- 
+
 @Component({
   standalone: true,
   imports:[RouterModule,RouterLink],
@@ -9,7 +9,7 @@ import { AuthStateService } from '../data-access/auth-state.service';
   template: `
 <header class="h-[200px] mb-8 w-full px-4 bg-[#0e4d34]">
 <nav class="flex items-center justify-between h-full w-full">
-    <a class="text-2xl font-bold text-white" routerLink="/tasks">Ng Task</a>
+    <a class="text-2xl font-bold text-white" routerLink="/tasks">Facturama</a>
     <button
   type="button"
   class="text-black bg-white hover:bg-gray-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-black-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm p-2 text-center me-2 mb-2 ml-auto flex items-center mt-[-80px]"

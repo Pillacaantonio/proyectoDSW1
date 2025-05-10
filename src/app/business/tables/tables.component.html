@@ -1,35 +1,106 @@
+<div class="flex flex-wrap -mx-3">
+  <!-- Contenedor principal -->
+  <div class="flex-none w-full max-w-full px-3">
+    <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white shadow-xl rounded-2xl">
+      <!-- Título -->
+      <div class="flex justify-end mb-4">
+        <button
+          matRipple
+          class="flex items-center select-none rounded-lg bg-indigo-500 py-2 px-4 text-xs font-bold uppercase text-white shadow-md shadow-indigo-500/20 transition-all hover:bg-indigo-600 hover:shadow-lg hover:shadow-indigo-500/40 focus:opacity-85 active:opacity-85 disabled:opacity-50"
+          type="button"
+          (click)="openAdd()"
+          data-ripple-light="true">
+          <i class="fas fa-plus mr-2"></i> Nuevo Producto
+        </button>
+      </div>
 
-<button (click)="showModal()" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-  Crear Producto
-</button>
+      <!-- Mensajes de carga o error -->
+      <div *ngIf="cargando" class="text-center py-4">
+        <p class="text-gray-700 text-sm font-medium">Cargando Productos...</p>
+      </div>
+
+      <div *ngIf="mensajeError" class="text-center text-red-500 py-4">
+        <p class="text-sm">{{ mensajeError }}</p>
+      </div>
+
+      <!-- Tabla con PrimeNG -->
+      <div *ngIf="!cargando && productos.length > 0" class="p-4">
+        <div class="overflow-auto rounded-lg shadow">
+          <p-table
+            [value]="productos"
+            [paginator]="true"
+            [rows]="5"
+            [rowsPerPageOptions]="[5, 10, 15]"
+            [scrollable]="true"
+            scrollHeight="400px"
+            dataKey="func_icod_funeraria"
+            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+            [style]="{ 'font-size': '0.8rem' }"
+          >
+            <!-- Encabezado -->
+            <ng-template pTemplate="header">
+              <tr class="bg-white-600 text-white text-xs">
+
+                <th pSortableColumn="nombre"
+                    class="p-2 text-sm font-semibold tracking-wide text-center bg-gray-300 min-w-[200px] text-black !important">
+                  Nombre Producto
+                  <p-sortIcon field="nombre"></p-sortIcon>
+                </th>
+                <th pSortableColumn="descripcion"
+                    class="p-2 text-sm font-semibold tracking-wide text-center bg-gray-100 min-w-[200px] text-black!important">
+                  Descripción<p-sortIcon field="descripcion"></p-sortIcon></th>
+
+                <th pSortableColumn="precio"
+                    class="p-2 text-sm font-semibold tracking-wide text-center bg-gray-100 min-w-[200px] text-black !important">
+                  Precio<p-sortIcon field="precio"></p-sortIcon></th>
+
+                <th pSortableColumn="stock"
+                    class="p-2 text-sm font-semibold tracking-wide text-center bg-white-500 min-w-[200px] text-black !important">
+                  Stock<p-sortIcon field="stock"></p-sortIcon></th>
+
+                <th pSortableColumn="fecharegistro"
+                    class="p-2 text-sm font-semibold tracking-wide text-center bg-gray-100 min-w-[200px] text-black !important">
+                  Fecha Registro<p-sortIcon field="fecharegistro"></p-sortIcon></th>
+
+                <th pSortableColumn="estado"
+                    class="p-2 text-sm font-semibold tracking-wide text-center bg-gray-500 min-w-[200px] text-black !important">
+                  Estado <p-sortIcon field="estado"></p-sortIcon></th>
+
+              </tr>
+            </ng-template>
+
+            <!-- Cuerpo -->
+            <ng-template pTemplate="body" let-item>
+              <tr class="hover:bg-gray-500 text-xs">
 
 
-<!-- Modal -->
-<app-crear-producto *ngIf="modalVisible" (closeModal)="refreshProductosList()"></app-crear-producto>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.nombre }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.descripcion }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.precio }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.stock }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.fecharegistro | date:'yyyy-MM-dd'}}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">
+                  <span
+                    [ngClass]="item.estado? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'">
+                    {{ item.estado ? 'Activo' : 'Inactivo' }}
+                  </span>
+                </td>
+              </tr>
+            </ng-template>
 
-<div class="overflow-x-auto">
-  <table class="min-w-full bg-white border border-gray-200">
-      <thead>
-          <tr class="bg-gray-100 text-gray-600">
-              <th class="px-6 py-3 text-left">ID Producto</th>
-              <th class="px-6 py-3 text-left">Nombre</th>
-              <th class="px-6 py-3 text-left">Descripción</th>
-              <th class="px-6 py-3 text-left">Precio</th>
-              <th class="px-6 py-3 text-left">Stock</th>
-              <th class="px-6 py-3 text-left">Fecha Registro</th>
-              <th class="px-6 py-3 text-left">Estado</th>
-          </tr>
-      </thead>
-      <tbody class="text-gray-600">
-           <tr *ngFor="let producto of productos">
-             <td class="px-6 py-4">{{ producto.id_producto }}</td>
-             <td class="px-6 py-4">{{ producto.nombre }}</td>
-             <td class="px-6 py-4">{{ producto.descripcion }}</td>
-             <td class="px-6 py-4">{{ producto.precio }}</td>
-             <td class="px-6 py-4">{{ producto.stock }}</td>
-             <td class="px-6 py-4">{{ producto.fecharegistro | date:'yyyy-MM-dd'}}</td>
-             <td class="px-6 py-4">{{ producto.estado }}</td>
-          </tr>
-       </tbody>
-  </table>
+            <ng-template pTemplate="paginatorleft">
+              <p-button type="button" icon="pi pi-angle-left" styleClass="p-button-text"></p-button>
+            </ng-template>
+            <ng-template pTemplate="paginatorright">
+              <p-button type="button" icon="pi pi-angle-right" styleClass="p-button-text"></p-button>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+
+      <div *ngIf="!cargando && productos.length === 0 && !mensajeError" class="text-center py-4">
+        <p class="text-gray-700 text-sm">No hay productos disponibles.</p>
+      </div>
+    </div>
+  </div>
 </div>
