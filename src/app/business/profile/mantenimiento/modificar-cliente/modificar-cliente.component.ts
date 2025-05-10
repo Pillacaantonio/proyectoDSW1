@@ -66,6 +66,9 @@ export class ModificarClienteComponent implements OnInit {
         Validators.maxLength(15),
       ]),
       fechaRegistro: new FormControl(this.formatDate(this.data.fechaRegistro)),  
+
+          estado: new FormControl(this.data.estado !== undefined ? this.data.estado : true),
+
     });
   }
   private formatDate(date: string): string {

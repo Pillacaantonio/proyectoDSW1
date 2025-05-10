@@ -63,7 +63,7 @@ export default class SignUptComponent {
  async submitWithGoogle(){
   try{
     await this._authService.signInWithGoogle();
-    toast.success('Bienvenido de nuevo');
+    toast.success('Bienvenido a la pagina');
     this._router.navigateByUrl('/tastks');
 
   }catch (error)

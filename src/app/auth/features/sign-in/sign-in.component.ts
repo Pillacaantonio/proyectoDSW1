@@ -62,7 +62,7 @@ private _formBuilder = inject(FormBuilder);
   async submitWithGoogle(){
     try{
       await this._authService.signInWithGoogle();
-      toast.success('Bienvenido de nuevo');
+      toast.success('Bienvenido a la Pagina');
       this._router.navigateByUrl('/tastks');
   
     }catch (error)
