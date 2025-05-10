@@ -34,8 +34,8 @@ export class FacturaService {
     return this.http.get(`${this.apiUrl}/Cliente/GetOneCliente/${id}`);
   }
 
-actualizarCliente(id: number, cliente: any): Observable<any> {
-  return this.http.put(`${this.apiUrl}/Cliente/Update/${id}`, cliente, { responseType: 'text' });
+   actualizarCliente(id: number, cliente: any): Observable<any> {
+   return this.http.put(`${this.apiUrl}/Cliente/Update/${id}`, cliente, { responseType: 'text' });
 }
 
    getFacDetalle(id: number): Observable<any> {
@@ -50,7 +50,16 @@ actualizarCliente(id: number, cliente: any): Observable<any> {
   }
 
    actualizarProducto(id: number, producto: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/Producto/Update/${id}`, producto);
+    return this.http.put(`${this.apiUrl}/Producto/Update/${id}`, producto,{responseType: 'text' as 'json'});
+  }
+  eliminarProducto(id_producto: number): Observable<any> {
+     return this.http.delete(`${this.apiUrl}/Producto/EliminarProducto/${id_producto}`, { responseType: 'text' })
+                      .pipe(
+                        catchError((error) => {
+                          console.error('Error al eliminar producto', error);
+                          return throwError(error);
+                        })
+                      );
   }
   getListadoClientes(): Observable<any> {
     return this.http.get(`${this.apiUrl}/Cliente/ListadoClientes`);

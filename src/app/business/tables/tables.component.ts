@@ -8,54 +8,47 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { MatDialog } from '@angular/material/dialog';
+import { ModificarProductoComponent } from '../profile/mantenimiento/modificar-producto/modificar-producto.component';
 
 @Component({
   selector: 'app-tables',
   templateUrl: './tables.component.html',
   styleUrls: ['./tables.component.scss'],
   standalone: true,
-  imports: [CommonModule, HttpClientModule, CrearProductoComponent, ButtonModule, TableModule],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    CrearProductoComponent,
+    ButtonModule, TableModule],
   providers: [FacturaService],
   animations: [
    trigger('overlayContentAnimation', [
-      state('start', style({
-          opacity: 0
-      })),
-      state('end', style({
-        opacity: 1
-      })),
+      state('start', style({opacity: 0})),
+      state('end', style({opacity: 1})),
       transition('start <=> end', animate('300ms ease-in-out')),
       ])
    ]
 })
 export default class ProfileComponent implements OnInit {
- openView() {
-throw new Error('Method not implemented.');
-}
-cargando: boolean = false;
-currentPage: number = 1;
+  cargando: boolean = false;
+  currentPage: number = 1;
   pageSize: number = 5;
   totalPages: number = 0;
   paginatedProducto: Producto[] = [];
   public permision!: boolean;
   mensajeError: string = '';
-
-
+  overlayState: string = 'start';
   productos: Producto[] = [];
-  modalVisible = false;  // Controla la visibilidad del modal
-  overlayState = 'start';
+  modalVisible = false;
 
-  constructor(
-  private facturaService: FacturaService,
-  private dialog: MatDialog
-  ) { }
+  constructor(private facturaService: FacturaService,private dialog: MatDialog) {}
+
+  ngOnInit(): void {
+    this.obtenerListadoProductos();
+  }
 
  openAdd() {
-  this.dialog
-      .open(CrearProductoComponent, {
-        width: '750px',
-        disableClose: true,
-      })
+  this.dialog.open(CrearProductoComponent, {width: '750px',disableClose: true,})
       .afterClosed()
       .subscribe((result: boolean) => {
         if (result) {
@@ -65,11 +58,9 @@ currentPage: number = 1;
       });
  }
 
-  ngOnInit(): void {
-    this.obtenerListadoProductos();
-  }
-
   obtenerListadoProductos(): void {
+    this.cargando = true;
+    this.mensajeError = '';
     this.facturaService.getListadoProductos().subscribe(
       (data) => {
         this.productos = data.map((producto: { estado: number; }) => ({
@@ -77,44 +68,78 @@ currentPage: number = 1;
           estado: producto.estado === 1  // Convierte el estado a booleano
         }));
         this.overlayState = 'end';
-        this.updatePaginatedFunerarias();
+        this.updatePaginatedProducto();
+        this.totalPages = Math.ceil(this.productos.length / this.pageSize);
+        this.cargando = false;
       },
       (error) => {
         console.error('Hubo un error al obtener los Productos', error);
+        this.mensajeError = 'Error al cargar clientes';
+        this.cargando = false;
       }
     );
   }
-  // Mostrar el modal
+
+  openEdit(producto: any): void {
+    const dialogRef = this.dialog.open(ModificarProductoComponent, { data: producto });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.obtenerListadoProductos();
+      }
+    });
+  }
+
+  openView(producto: any): void {
+    const dialogRef = this.dialog.open(ModificarProductoComponent, { data: { producto, isViewMode: true } });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.obtenerListadoProductos();
+      }
+    });
+  }
+
+  eliminarProducto(id_producto: number): void {
+    if (confirm('¿Estás seguro de eliminar este producto?')) {
+      this.facturaService.eliminarProducto(id_producto).subscribe(
+        (response) => {
+          this.obtenerListadoProductos();
+        },
+        (error) => {
+          console.error('Error al eliminar el producto', error);
+        }
+      );
+    }
+  }
+
   showModal() {
     this.modalVisible = true;
   }
-  // Ocultar el modal
+
   hideModal() {
     this.modalVisible = false;
   }
-  // Método que se ejecuta cuando se emite el evento de refrescar la lista
+
     refreshProductosList() {
     this.obtenerListadoProductos();
-    this.hideModal();  // Cierra el modal después de actualizar la lista
+    this.hideModal();
   }
-  // Actualiza las funerarias paginadas
-    updatePaginatedFunerarias() {
+    updatePaginatedProducto() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
     this.paginatedProducto = this.productos.slice(startIndex, endIndex);
   }
-  // Cambia a la página anterior
+
   previousPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
-      this.updatePaginatedFunerarias();
+      this.updatePaginatedProducto();
     }
   }
-  // Cambia a la siguiente página
+
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
-      this.updatePaginatedFunerarias();
+      this.updatePaginatedProducto();
     }
   }
 }
